@@ -1,78 +1,67 @@
 
 
-function additionsaufgabe(zeichen){
-  var zählerA = rand(1,10);
-  var nennerA = rand(1,10);
-  var zählerB = rand(1,10);
-  var nennerB = rand(1,10);
+function binom(){
+  var faktor1 = rand(1,10);
+  var faktor2 = rand(1,10);
+  var buchstabe1 = rand(1,26);
+  var buchstabe2 = rand(1,26);
+  buchstabe1 = buchstaben(buchstabe1, "ohnealles");
+  buchstabe2 = buchstaben(buchstabe2, "ohnealles");
 
-if(zählerA>nennerA){
-  var speicher=zählerA;
-  zählerA=nennerA;
-  nennerA=speicher;
-}
 
-if(zählerB>nennerB){
-  var speicher=zählerB;
-  zählerB=nennerB;
-  nennerB=speicher;
-}
 
   var auftragszahl =[];
 
-if(zeichen=="+"){
-  var zählerLös = zählerA*nennerB + zählerB*nennerA;
-  var nennerLös = nennerA*nennerB;
-    var auftrag = [];
-}else if(zeichen=="-"){
-    var zählerLös = zählerA*nennerB - zählerB*nennerA;
-    var nennerLös = nennerA*nennerB;
-      var auftrag = [];
-}else if(zeichen=="*"){
-  var zählerLös = zählerA*zählerB;
-  var nennerLös = nennerA*nennerB;
-    var auftrag = [];
-}else if(zeichen==":"){
-  var zählerLös = zählerA*nennerB;
-  var nennerLös = nennerA*zählerB;
-  var auftrag = [];
-}else if(zeichen=="erweitern"){
-  zählerA =zählerB;
-  var zählerLös = zählerA;
-  var nennerLös = nennerA;
-  var randöm0 = rand(2,5);
-    var randöm1 = rand(2,10);
-  var auftrag0 = "Erweitere den Bruch mit " + randöm0*randöm1;
-  var auftrag1 = ", kürze dann mit " + randöm0;
-  var auftrag2 = " und kürze anschließend mit " + randöm1 + ".";
-  var auftrag = [auftrag0, auftrag1, auftrag2];
-  auftragszahl =[randöm0*randöm1, randöm0, randöm1];
-}
+var a =  faktor1 + "" + buchstabe1 ;
+var b = faktor2 + "" + buchstabe2;
 
-  var aufgabenstring = [zählerA, nennerA, zählerB, nennerB, zählerLös, nennerLös,zeichen,auftrag,auftragszahl];
+var term1 = "( " + a + " + " + b + " )";
+var term2 = "( " + a + " - " + b + " )";
+
+var random = rand(1,2);
+
+if(random==1){
+  term1 = term1;
+  term2=term1;
+}
+var random1 = rand(1,2);
+if(random1==1){
+  var speicher=term1;
+  term1=term2;
+  term2=speicher;
+}else{
+  term2=term1;
+}
+var lösung = löser(term1, term2, faktor1, faktor2, buchstabe1, buchstabe2);
+
+
+  var aufgabenstring = [term1, term2,lösung];
   return aufgabenstring;
 }
 
-function aufgaben(){
+function löser(term1, term2,faktor1,faktor2,buchstabe1,buchstabe2){
+  var array1= term1.split(" ");
+  var array2 = term2.split(" ");
+  var zeichen1 = array1[2];
+  var zeichen2 = array2[2];
+  var lösungsstring = "hi";
+  if((zeichen1 == "+")&&(zeichen2=="+")){
+    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " + " + faktor1*faktor2 + buchstabe1 + buchstabe2 + " + " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+
+  }else if(((zeichen1 == "+")&&(zeichen2=="-"))||((zeichen1 == "-")&&(zeichen2=="+"))){
+    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+
+  }
+  else if((zeichen1 == "-")&&(zeichen2=="-")){
+    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " + faktor1*faktor2 + buchstabe1 + buchstabe2 + " - " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+
+  }
+
+
+  return lösungsstring;
 
 }
 
-
-
-function addieren(bruch1, bruch2){
-
-
-}
-
-
-
-function bruchvonAnzahl(bruch1, anzahl){
-
-}
-
-function erweitern(bruch, erweiterungszahl){
-
-}
 
 
 function bruch(a, b){
@@ -84,18 +73,16 @@ function bruch(a, b){
 }
 
 
-var bay= bruch(5,99);
+var icon1 ='<img src="https://img.icons8.com/ios/50/000000/whole-fish.png">';
+var icon2 = '<img src="https://img.icons8.com/ios/50/000000/dolphin.png">';
+var icon3 = '<img src="https://img.icons8.com/ios/50/000000/earth-worm.png">';
+var icon4 ='<img src="https://img.icons8.com/ios/50/000000/hamster.png">';
+var icon5 = '<img src="https://img.icons8.com/ios/50/000000/gorilla.png">';
+var icon6 ='<img src="https://img.icons8.com/ios/50/000000/sloth.png">';
+var icon7 ='<img src="https://img.icons8.com/ios/50/000000/owl.png">';
+var icon8 ='<img src="https://img.icons8.com/ios/50/000000/bird.png">';
 
-var icon1 ='<img class="images" src="https://img.icons8.com/wired/64/000000/plus-math.png">';
-var icon2 = '<img class="images" src="https://img.icons8.com/wired/64/000000/minus-math.png">';
-var icon3 = '<img class="images" src="https://img.icons8.com/wired/64/000000/multiply.png">';
-var icon4 ='<img class="images" src="https://img.icons8.com/wired/64/000000/divide.png">';
-var icon5 = '<img class="images" src="https://img.icons8.com/wired/64/000000/zoom-to-extents.png">';
-var icon6 ='<img class="images" src="https://img.icons8.com/wired/64/000000/variation.png">';
-
-
-
-var iconString = [icon1,icon2,icon3,icon4,icon5];
+var iconString = [icon1,icon2,icon3,icon4,icon5, icon6, icon7, icon8];
 
 
 

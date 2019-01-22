@@ -7,96 +7,63 @@
   font-size:13pt;
   font-family: Roboto, Helvetica, Times New Roman;
 }
+
+
+.lösung svg{
+font-size: 20pt;
+}
+
 #inputFeld{
   height:100%;
   font-size:inherit;
 }
-
-.bilderFeld .bruchbildböxchen{
-  display: flex;
-  height: auto;
-  justify-content: center;
-  border-radius:10pt;
+.aufgabenübersicht img{
+  width:28pt;
+  height:28pt;
 }
 
-.bilderFeld{
-  padding:5pt;
-  grid-gap: 4pt;
-  display:grid;
-  height:80pt;
-  grid-template-columns: 18% 20% 20% 20% 20%;
-  justify-content: center;
 
-}
+
+
+
 #aufgabenFeld p{
+  font-size: 24pt;
   display:grid;
   grid-column-gap: 2pt;
   grid-template-rows: 100%;
-  grid-template-columns: 15% 5% 15% 5% 15% 5% 15% 5% 15%;
-
-
+  grid-template-columns: 150pt 10pt 150pt 10pt 250pt;
 }
-.bruchBox{
-  display:grid;
-  grid-template-columns: 100%;
-  grid-template-rows: 45% 10% 45%;
-  height:80pt;
-  border-radius: 10pt;
-}
-.operatorBox,
-.gleichBox{
+
+#aufgabenFeld p div{
   display:flex;
   padding:3pt;
-  align-items:center;
+  justify-content: center;
+  height:100%;
+  width:100%;
+  text-align: center;
+}
+
+#aufgabenFeld p div p{
+  display:flex;
+  padding:3pt;
   justify-content: center;
   height:100%;
   width:100%;
 }
-.operator{
-  padding:6pt;
-  margin:0;
-  font-size: 38pt;
-justify-content: center;
-  width:100%;
-
-}
-
-
-#aufgabenFeld p .bruchBox p{
+.bruchBox{
+  font-size: 24pt;
   display:flex;
-  align-items:center;
-  justify-content:center;
-  text-align:center;
-
-}
-
-#aufgabenFeld p div hr{
-  position:relative;
-  width:40%;
-  height:1px;
-  border:1.5px solid;
-  border-color:darkgrey;
-  border-radius:3pt;
-  left: 30%;
-  top:50%;
-}
-.zählerböxchen,
-.nennerböxchen{
-  font-size:24pt;
-
+  padding:3pt;
+  justify-content: center;
+  height:100%;
+  width:100%;
+  text-align: center;
+  border-radius: 10pt;
 }
 
 
-#bruchteil{
-  fill:blue;
-}
 
-#innenkreis{
-  fill:white;
-}
-#aussenkreis{
-  fill:black;
-}
+
 
 .üschrift{
   grid-column-start: 1;
