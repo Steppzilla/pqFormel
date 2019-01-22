@@ -1,8 +1,6 @@
-# bruch
+# pqFormel
 
-steppzilla.github.io/aufgaben/ersterVersuch.html
-
-steppzilla.github.io/bruch/bruchboyz.html
+steppzilla.github.io/start/
 ```html
 <script src="/aufgaben/setup.js"></script>
 <script src="jazz.js"></scipt>
@@ -14,4 +12,3 @@ steppzilla.github.io/bruch/bruchboyz.html
 ```java
 System.out.println('jjj');
 ```
-# pqFormel

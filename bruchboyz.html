@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang='de'>
+<head>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js">
+	</script>
+	<meta charset='UTF-8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Maddä-train</title>
+	<!--android Icons der Website:-->
+	<link rel="apple-touch-icon" sizes="57x57" href="./png/apple-icon-57x57.png">
+	<link rel="apple-touch-icon" sizes="60x60" href="./png/apple-icon-60x60.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="./png/apple-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="76x76" href="./png/apple-icon-76x76.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="./png/apple-icon-114x114.png">
+	<link rel="apple-touch-icon" sizes="120x120" href="./png/apple-icon-120x120.png">
+	<link rel="apple-touch-icon" sizes="144x144" href="./png/apple-icon-144x144.png">
+	<link rel="apple-touch-icon" sizes="152x152" href="./png/apple-icon-152x152.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="./png/apple-icon-180x180.png">
+	<link rel="icon" type="image/png" sizes="192x192"  href="./png/android-icon-192x192.png">
+	<link rel="icon" type="image/png" sizes="32x32" href="./png/favicon-32x32.png">
+	<link rel="icon" type="image/png" sizes="96x96" href="./png/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="./png/favicon-16x16.png">
+	<link rel="manifest" href="./png/manifest.json">
+	<meta name="msapplication-TileColor" content="#ffffff">
+	<meta name="msapplication-TileImage" content="/ms-icon-144x144.png">
+	<meta name="theme-color" content="#ffffff">
+	<!--meine css:-->
+  <link rel='stylesheet' href='styles.css'/>
+	<!--LATEX+++++++++++++++++(MAthJax) ++ alte version schneller aber schlechter: "output/NativeMML"-->
+	<script type="text/x-mathjax-config">
+		 	MathJax.Hub.Config({
+ 		 	jax: ["input/TeX","input/MathML","output/SVG", "output/PreviewHTML"],
+ 			extensions: ["tex2jax.js","mml2jax.js","MathMenu.js","MathZoom.js", "fast-preview.js", "AssistiveMML.js", "a11y/accessibility-menu.js"],
+ 			TeX: {
+ 				extensions: ["AMSmath.js","AMSsymbols.js","noErrors.js","noUndefined.js"]
+ 			},
+			tex2jax: {
+	 			inlineMath: [['$','$'], ['\\(','\\)']],
+	 			processEscapes: true
+ 			},
+			SVG:{
+				font: "Gyre-Pagella",
+				scale:100,
+				undefinedFamily: "STIXGeneral, 'Arial Unicode MS', serif",
+				mtextFontInherit: true,
+				addMMLclasses: false, //some css style-stuff
+				matchFontHeight: true,
+				styles: {
+					".MathJax_Display": {
+	 				"text-align": "center",
+	 					margin:       "1em 0em"
+ 					},
+
+ 				".MathJax .merror": {
+	 				"background-color": "#FFFF88",
+	 				color:   "#CC0000",
+	 				border:  "1px solid #CC0000",
+	 				padding: "1px 3px",
+	 				"font-style": "normal",
+	 				"font-size":  "50%"
+ 				}
+
+				}
+
+			},
+			PreviewHTML: {
+	 			scale: 100
+ 			}
+ 			});
+
+			</script>
+	<script type="text/javascript" async
+		src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.5/latest.js?config=default" >
+	</script>
+
+
+ 	</head>
+
+<body>
+  <div class='flex-wrap page'>
+
+		<div class='menu grid con'>
+			<div class="menüitem1 flex-wrap">
+				<button type="button" onclick="home()" ><img src="https://img.icons8.com/ios/64/000000/home.png" class="pic"></button>
+				<button type="button" onclick="druckansicht()" ><img src="https://img.icons8.com/ios/64/000000/shopping-cart.png" class="pic"></button>
+			</div>
+			<div class="menüitem2 flex-wrap">
+				<button type="button" onclick="myFunction()" class="home">hilfs-Farbe</button>
+				<button type="button" onclick="layOut()" class="home">Layout</button>
+				<button type="button" onclick="printcontainer()" class="home"><img src="https://img.icons8.com/ios/64/000000/add-shopping-cart.png" class="pic"></button>
+
+				<button type="button" onclick="printer()" class="druck"><img src="https://img.icons8.com/ios/50/000000/print.png" class="pic"></button>
+				<button type="button" onclick="vierf()" class="druck"><img src="https://img.icons8.com/ios/50/000000/grid-2.png" class="pic"></button>
+				<button type="button" onclick="baumd()" class="druck"><img src="https://img.icons8.com/ios/50/000000/tree-structure.png" class="pic"></button>
+				<button type="button" onclick="baumVier()" class="druck"><img src="https://img.icons8.com/ios/50/000000/grid-2.png" class="pic"><img src="https://img.icons8.com/ios/50/000000/tree-structure.png" class="pic"></button>
+				<button type="button" onclick="nurLös()" class="druck"><img src="https://img.icons8.com/ios/50/000000/compress.png" class="pic"></button>
+				<button type="button" onclick="nurAufgabe()" class="druck"><img src="https://img.icons8.com/ios/50/000000/txt.png" class="pic"></button>
+			</div>
+		</div>
+<!-- linke Leiste:-->
+		<div class='flex-wrap aufgabenübersicht c con'  id="Aufgabenübersicht">
+		</div>
+
+<!-- mainpage:-->
+<div class='flex-wrap rechtepage'>
+		<div class="flex-wrap innerpage1 c con">
+			<div class='main' id="Aufgabentext">
+				<div class="Nüberschrift">
+					<h1>Bruchrechnen</h1>
+				</div>
+				<div style="text-align:center" >
+					<p>	Viel Erfolg beim Üben und Lernen! <br>Wähle eine Aufgabe
+						und löse sie!
+					</p>
+				</div>
+				<div  class="bilderFeld" >
+
+				</div>
+			</div>
+			<div class='main' id="Lösungstext">
+				<div >
+
+				</div>
+				<div style="text-align:center" id="aufgabenFeld">
+					<p>
+					</p>
+				</div>
+			</div>
+
+
+
+		<div class="printArea">
+
+		</div>
+
+</div>
+<div class="bruchbildböxchen" id="BruchbildBox">
+	<svg  opacity="0" height="110pt" viewBox="0 0 110 110" id="BruchBild"  xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" baseProfile="tiny" fill="none">
+		<circle id="aussenkreis" cx="55"  cy="55"  r="50" />
+		<circle id="innenkreis" cx="55"  cy="55"  r="48" />
+	</svg>
+</div>
+
+</div>
+</div>
+
+
+
+<!-- <canvas  class="canvas" id="myCanvas" width="1200" height="800"/>
+ -->
+	<script src="Aufgabentexte/vierFelderTafelAufgaben.js"></script>
+		<script src="Aufgabentexte/bruchaufgaben.js"></script>
+		<script src="bruch/bruchteil.js"></script>
+<!--
+<script src="baumdiagramm/baumElemente.js"></script>
+<script src="baumdiagramm/baumScript.js"></script>
+
+	<script src="windowResize.js"></script>
+-->
+		<script src="myScript.js"></script>
+		<script src="aussehen.js"></script>
+<!--
+		<script src="ergebnisÜberprüfer.js"></script>
+-->
+
+
+
+
+  </body>
+</html>
