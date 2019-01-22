@@ -1,6 +1,6 @@
 
 
-function binom(){
+function binom(zahl){
   var faktor1 = rand(1,10);
   var faktor2 = rand(1,10);
   var buchstabe1 = rand(1,26);
@@ -8,12 +8,13 @@ function binom(){
   buchstabe1 = buchstaben(buchstabe1, "ohnealles");
   buchstabe2 = buchstaben(buchstabe2, "ohnealles");
 
+  var a =  faktor1 + "" + buchstabe1 ;
+  var b = faktor2 + "" + buchstabe2;
 
-
-  var auftragszahl =[];
-
-var a =  faktor1 + "" + buchstabe1 ;
-var b = faktor2 + "" + buchstabe2;
+if (zahl==1){
+ a =  buchstabe1 ;
+ b = faktor2;
+}
 
 var term1 = "( " + a + " + " + b + " )";
 var term2 = "( " + a + " - " + b + " )";
@@ -32,28 +33,34 @@ if(random1==1){
 }else{
   term2=term1;
 }
-var lösung = löser(term1, term2, faktor1, faktor2, buchstabe1, buchstabe2);
+
+var lösung = löser(term1, term2, faktor1, faktor2, buchstabe1, buchstabe2,zahl);
 
 
   var aufgabenstring = [term1, term2,lösung];
   return aufgabenstring;
 }
 
-function löser(term1, term2,faktor1,faktor2,buchstabe1,buchstabe2){
+function löser(term1, term2,faktor1,faktor2,buchstabe1,buchstabe2,zahl){
+
+  if(zahl==1){
+    faktor1=1;
+    buchstabe2="";
+  }
   var array1= term1.split(" ");
   var array2 = term2.split(" ");
   var zeichen1 = array1[2];
   var zeichen2 = array2[2];
   var lösungsstring = "hi";
   if((zeichen1 == "+")&&(zeichen2=="+")){
-    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " + " + faktor1*faktor2 + buchstabe1 + buchstabe2 + " + " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " + " + 2*faktor1*faktor2 + buchstabe1 + buchstabe2 + " + " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
 
   }else if(((zeichen1 == "+")&&(zeichen2=="-"))||((zeichen1 == "-")&&(zeichen2=="+"))){
-    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " +  faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
 
   }
   else if((zeichen1 == "-")&&(zeichen2=="-")){
-    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " + faktor1*faktor2 + buchstabe1 + buchstabe2 + " - " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " + 2*faktor1*faktor2 + buchstabe1 + buchstabe2 + " - " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
 
   }
 

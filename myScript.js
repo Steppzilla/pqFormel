@@ -37,26 +37,33 @@ $(".menu").find(".druck").hide();
 	//alert(ix);
 	switch(ix){
 			case 0 :
-				aufgabe = binom();
+				aufgabe = binom(0);
 				$(".operatorBox").children().eq(0).html("&#8729");
 			//		$("#Aufgabentext").children().eq(1).children().eq(0).html(aufgabe[7]);
 				break;
 			case 1:
-				aufgabe = binom();
-				$(".operatorBox").eq(0).children().eq(0).text("-");
-				$(".operatorBox").eq(1).children().eq(0).text("-");
+				aufgabe = binom(1);
+			$(".operatorBox").children().eq(0).html("&#8729");
 		//			$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7]);
 				break;
 			case 2:
-				aufgabe = binom();
-				$(".operatorBox").children().eq(0).text("*");
-				$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7]);
-				mittehide();
+			//breiten anpassen:
+				var breite1 = 	$(".bruchBox").eq(0).css("width");
+				var breite2 = $(".bruchBox").eq(2).css("width");
+				$(".bruchBox").eq(0).css("width",breite2);
+				$(".bruchBox").eq(2).css("width",breite1);
+				$("#aufgabenFeld").children().first().css("grid-template-columns", "250pt 10pt 150pt 10pt 150pt");
+
+				aufgabe = binom(1);
+				var speicher=[aufgabe[2], aufgabe[1], aufgabe[0]];
+				aufgabe=speicher;
+				$(".operator").eq(0).html("=");
+				$(".operator").eq(1).html("&#8729");
 				break;
 			case 3:
 				aufgabe = binom();
-				$(".operatorBox").eq(0).children().eq(0).text(":");
-				$(".operatorBox").eq(1).children().eq(0).text("*");
+				$(".operator").text(":");
+				$(".operator").text("*");
 				$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7]);
 				break;
 			case 4:
@@ -94,15 +101,6 @@ ergebnischeck(aufgabe);
 		inputMachen($(this), aufgabe);
 		});
 }); //ende click links
-
-function mittehide(){
-	$(".bilderFeld .bruchbildböxchen").eq(2).hide();
-	$(".bilderFeld .bruchbildböxchen").eq(3).hide();
-	$(".bruchBox").eq(2).hide();
-	$(".bruchBox").eq(3).hide();
-	$(".operatorBox").eq(1).hide();
-	$(".gleichBox").eq(0).hide();
-}
 
 
 function linkeSeiteschreiben(){
