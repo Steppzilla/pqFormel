@@ -8,8 +8,15 @@
   font-family: Roboto, Helvetica, Times New Roman;
 }
 
+.hidden{
+  opacity:0;
+}
 
 .lösung svg{
+font-size: 20pt;
+}
+
+.bruchBox svg{
 font-size: 20pt;
 }
 

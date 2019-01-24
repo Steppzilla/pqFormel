@@ -11,7 +11,8 @@ function binom(zahl){
   var a =  faktor1 + "" + buchstabe1 ;
   var b = faktor2 + "" + buchstabe2;
 
-if (zahl==1){
+//2. Aufgabentyp mit nur 1 Variablen
+if ((zahl==1)||(zahl==2)){
  a =  buchstabe1 ;
  b = faktor2;
 }
@@ -19,18 +20,25 @@ if (zahl==1){
 var term1 = "( " + a + " + " + b + " )";
 var term2 = "( " + a + " - " + b + " )";
 
-var random = rand(1,2);
+
+
+var random = rand(1,4);
+
 
 if(random==1){
-  term1 = term1;
-  term2=term1;
-}
-var random1 = rand(1,2);
-if(random1==1){
-  var speicher=term1;
+  term2=term1; //beide plus
+}else if(random==2){
+  //+ -
+}else if(random==3){
+  var speicher = term1;
   term1=term2;
   term2=speicher;
-}else{
+}else if(random==4){
+  term1=term2;
+}
+
+
+if(zahl==2){
   term2=term1;
 }
 
@@ -43,7 +51,7 @@ var lösung = löser(term1, term2, faktor1, faktor2, buchstabe1, buchstabe2,zahl
 
 function löser(term1, term2,faktor1,faktor2,buchstabe1,buchstabe2,zahl){
 
-  if(zahl==1){
+  if((zahl==1)||(zahl==2)){
     faktor1=1;
     buchstabe2="";
   }
@@ -53,15 +61,21 @@ function löser(term1, term2,faktor1,faktor2,buchstabe1,buchstabe2,zahl){
   var zeichen2 = array2[2];
   var lösungsstring = "hi";
   if((zeichen1 == "+")&&(zeichen2=="+")){
-    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " + " + 2*faktor1*faktor2 + buchstabe1 + buchstabe2 + " + " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+    lösungsstring =  buchstabe1 + " \\( \\text{ }^2 \\) " + " + " + 2*faktor1*faktor2 + buchstabe1 + buchstabe2 + " + " + faktor2*faktor2 + buchstabe2 ;
 
   }else if(((zeichen1 == "+")&&(zeichen2=="-"))||((zeichen1 == "-")&&(zeichen2=="+"))){
-    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " +  faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+    lösungsstring =  buchstabe1 + " \\( \\text{ }^2 \\) " + " - " +  faktor2*faktor2 + buchstabe2 ;
 
   }
   else if((zeichen1 == "-")&&(zeichen2=="-")){
-    lösungsstring = faktor1*faktor1 + buchstabe1 +" \\( \\text{}^2 \\)" + " - " + 2*faktor1*faktor2 + buchstabe1 + buchstabe2 + " - " + faktor2*faktor2 + buchstabe2 + " \\( \\text{}^2 \\)";
+    lösungsstring =  buchstabe1 +" \\( \\text{ }^2 \\) " + " - " + 2*faktor1*faktor2 + buchstabe1 + buchstabe2 + " + " + faktor2*faktor2 + buchstabe2;
 
+  }
+
+  //Wenn zahl =0, erster Aufgabentyp mit 2 Variablen:
+
+  if(zahl==0){
+    lösungsstring = faktor1*faktor1 +lösungsstring+ " \\( \\text{ }^2 \\)";
   }
 
 
@@ -89,7 +103,7 @@ var icon6 ='<img src="https://img.icons8.com/ios/50/000000/sloth.png">';
 var icon7 ='<img src="https://img.icons8.com/ios/50/000000/owl.png">';
 var icon8 ='<img src="https://img.icons8.com/ios/50/000000/bird.png">';
 
-var iconString = [icon1,icon2,icon3,icon4,icon5, icon6, icon7, icon8];
+var iconString = [icon1,icon2,icon3,icon4,icon5, icon6];
 
 
 

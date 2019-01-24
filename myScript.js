@@ -16,12 +16,18 @@ $(".menu").find(".druck").hide();
 	window.aufgabenwahl=zahl;
 	$("#Aufgabentext").children().eq(0).children().eq(0).html("Aufgabe");//überschrift
 
+	$("#aufgabenFeld").children().eq(0).children().remove();//feld leeren
+	for(i=1;i<30;i++){
+		$("#aufgabenFeld").children().eq(1).remove(); //die kästchen rücken nach vorne
+	}
+
+
 	var div1= "<div class='bruchBox'></div>";
 	var div2= "<div class='operatorBox'> <p class='operator'> +</p> </div>";
 	var div3= "<div class='bruchBox'></div>";
 	var div4= "<div class='gleichBox'><p class='operator'> =</p> </div>";
 	var div5= "<div class='bruchBox lösung'></div>";
-
+	var aufgabe = "";
 
 
 	$("#aufgabenFeld").children().eq(0).html("");
@@ -34,70 +40,317 @@ $(".menu").find(".druck").hide();
 
 //Je nach Aufgabe unterschiedliche "Muster"
 	var ix = $(this).index() ;
+
 	//alert(ix);
 	switch(ix){
 			case 0 :
+				formatändern(1);
 				aufgabe = binom(0);
 				$(".operatorBox").children().eq(0).html("&#8729");
 			//		$("#Aufgabentext").children().eq(1).children().eq(0).html(aufgabe[7]);
+			$(".lösung").text(aufgabe[2]);
 				break;
 			case 1:
+				formatändern(1);
 				aufgabe = binom(1);
-			$(".operatorBox").children().eq(0).html("&#8729");
+				$(".operatorBox").children().eq(0).html("&#8729");
 		//			$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7]);
+		$(".lösung").text(aufgabe[2]);
 				break;
 			case 2:
-			//breiten anpassen:
-				var breite1 = 	$(".bruchBox").eq(0).css("width");
-				var breite2 = $(".bruchBox").eq(2).css("width");
-				$(".bruchBox").eq(0).css("width",breite2);
-				$(".bruchBox").eq(2).css("width",breite1);
-				$("#aufgabenFeld").children().first().css("grid-template-columns", "250pt 10pt 150pt 10pt 150pt");
-
+				formatändern(0);
 				aufgabe = binom(1);
 				var speicher=[aufgabe[2], aufgabe[1], aufgabe[0]];
 				aufgabe=speicher;
 				$(".operator").eq(0).html("=");
 				$(".operator").eq(1).html("&#8729");
+				$(".lösung").text(aufgabe[2]);
 				break;
 			case 3:
-				aufgabe = binom();
-				$(".operator").text(":");
-				$(".operator").text("*");
-				$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7]);
+				formatändern(0);
+				aufgabe = binom(1);
+				var speicher=[aufgabe[2], aufgabe[1], aufgabe[0]];
+				aufgabe=speicher;
+				$(".operator").eq(0).html("=");
+				$(".operator").eq(1).html("&#8729");
+				$(".lösung").text(aufgabe[2]);
 				break;
-			case 4:
-				aufgabe = binom();
-				$(".bruchBox").eq(1).hide();  //2. bruch wird nicht benötigt beim erweitern.
-				$(".operatorBox").eq(0).hide(); //
-				$(".bilderFeld .bruchbildböxchen").eq(1).hide(); //entsprechendes bild
-				$(".operatorBox").eq(1).children().eq(0).text("=");
-			//	$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7][0] + aufgabe[7][1] +  aufgabe[7][2]);
+			case 4: //Nullstellen
+				formatändern(0);
+				aufgabe = binom(2);
+				var speicher=[aufgabe[2], 0, aufgabe[1],aufgabe[0]];
+				aufgabe=speicher;
+				$(".operator").eq(0).html("=");
+				$(".operator").eq(1).hide();
+				$(".bruchBox").eq(2).hide();
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+				$("#aufgabenFeld").children().eq(1).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(1).children().eq(0).html(aufgabe[2]+"\\( \\text{ }^2 \\)");
+				$("#aufgabenFeld").children().eq(1).children().eq(2).html("0");
+				//3.zahl:
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+				$("#aufgabenFeld").children().eq(2).removeAttr("Id");
+				var split = aufgabe[2].split(" ");
+				var ohneKlammer = split[1] + " " + split[2] + " " + split[3];
+				$("#aufgabenFeld").children().eq(2).children().eq(0).html(ohneKlammer);
+				$("#aufgabenFeld").children().eq(2).children().eq(2).html("0");
+				//4. zeile:
+				var vorzeichen = split[2];
+				if(vorzeichen=="-"){
+					vorzeichen=" ";
+				}else if(vorzeichen=="+"){
+					vorzeichen="-";
+				}
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+				$("#aufgabenFeld").children().eq(3).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(3).children().eq(0).html(split[1]);
+				$("#aufgabenFeld").children().eq(3).children().eq(2).html(vorzeichen+ " " + split[3]);
 				break;
 			case 5:
-				aufgabe = binom();
-				$(".operatorBox").children().eq(0).text("?");
-					$("#Aufgabentext").children().eq(1).children().eq(0).text(aufgabe[7]);
+				formatändern(3);//links breit
+				aufgabe = binom(2);//nur - oder nur + beide klammern
+				var speicher=[aufgabe[2], 0, aufgabe[1],aufgabe[0]];
+				aufgabe=speicher;
+				var random = rand(1,100);
+				$(".operator").eq(0).html("=");
+				$(".operator").eq(1).text("");
+		//		$(".bruchBox").eq(2).hide();
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+			//	$("#aufgabenFeld").children().eq(1).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(1).children().eq(0).html(aufgabe[2]+"\\( \\text{ }^2 \\)");
+				$("#aufgabenFeld").children().eq(1).children().eq(2).html("0");
+				//3.zahl:
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+//				$("#aufgabenFeld").children().eq(2).removeAttr("Id");
+				var split = aufgabe[2].split(" ");
+				var ohneKlammer = split[1] + " " + split[2] + " " + split[3];
+				$("#aufgabenFeld").children().eq(2).children().eq(0).html(ohneKlammer);
+				$("#aufgabenFeld").children().eq(2).children().eq(2).html("0");
+				//4. zeile:
+				var vorzeichen = split[2];
+				if(vorzeichen=="-"){
+					vorzeichen=" ";
+				}else if(vorzeichen=="+"){
+					vorzeichen="-";
+				}
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+	//			$("#aufgabenFeld").children().eq(3).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(3).children().eq(0).html(split[1]);
+				$("#aufgabenFeld").children().eq(3).children().eq(2).html(vorzeichen+ " " + split[3]);
+
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+			//	$("#aufgabenFeld").children().eq(4).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(4).children().eq(0).html(split[1]);
+				$("#aufgabenFeld").children().eq(4).children().eq(2).html(vorzeichen+ " " + split[3]);
+
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+			//	$("#aufgabenFeld").children().eq(5).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(5).children().eq(0).html();
+				$("#aufgabenFeld").children().eq(5).children().eq(2).html();
+
+				$("#aufgabenFeld").children().eq(0).clone().appendTo($("#aufgabenFeld"));
+				$("#aufgabenFeld").children().eq(6).removeAttr("Id");
+				$("#aufgabenFeld").children().eq(6).children().eq(0).html();
+				$("#aufgabenFeld").children().eq(6).children().eq(2).html();
 				break;
 		}
 
-			//Aufgabe schreiben:
+		function formatändern(status){
+			if(status==0){
+				$("#aufgabenFeld").children().first().css("grid-template-columns", "250pt 10pt 150pt 10pt 150pt");
 
+			}else if(status==1){
+				$("#aufgabenFeld").children().first().css("grid-template-columns", "150pt 10pt 150pt 10pt 250pt");
+
+			}else if (status==3){
+				$("#aufgabenFeld").children().first().css("grid-template-columns", "250pt 10pt 250pt 50pt 350pt");
+			}
+		}
+
+		//Aufgabe schreiben:
 		$(".bruchBox").eq(0).text(aufgabe[0]);
 		$(".bruchBox").eq(1).text(aufgabe[1]);
 
 
-		//Bild 1 erstellen:
-		var ort1 = $(".bilderFeld").children().eq(0);
-		var ort2 = $(".bilderFeld").children().eq(1);
 
-		bruchbild(aufgabe[0],aufgabe[1], ort1);
-		bruchbild(aufgabe[2],aufgabe[3], ort2);
+		if(ix==5){
+			var split = aufgabe[0].split(" ");
+			var vorzeichen = split[8];
+			var zahl = split[9];
+			var gesamt = vorzeichen + zahl;
+			gesamt=parseInt(gesamt);
+			var rind = rand(1,2);
 
-ergebnischeck(aufgabe);
+			var gesamt1 = gesamt + random;
+			var gesamt2 = gesamt - random;
+			if(rind==1){
+				gesamt=gesamt1;
+			}else if (rind==2){
+				gesamt  = gesamt2;
+			}
+				//grafische pausen/Darstellung:
+			if(gesamt>0){
+				gesamt= " + " + gesamt;
+			}else if(gesamt<0){
+				gesamt = " " + gesamt;
+				var gum = gesamt.split("");
+				gesamt = gum[0] + " " + gum[1]+" " + gum[2];
+				if( gum[3]!=undefined){
+						gesamt = gesamt +gum[3];
+				}else if (gum[4]!=undefined){
+					gesamt = gesamt + gum[3]+gum[4];
+				}
+			}else{
+				gesamt = "";
+			}
+
+			$(".bruchBox").eq(0).text(split[0] + split[1] + split[2]+ " "+split[3]+  split[4]+ " " + split[5]+ " " + split[6] + " "+split[7]		+ gesamt);
+		//	MathJax.Hub.Queue(["Typeset",MathJax.Hub,"bruchBox"]);
+
+
+				$(".operator").eq(1).text( "|");
+				$(".bruchBox").eq(2).text("quadratische Ergänzung");
+
+			//	$(".operator").css("background-color","yellow");
+			var quadratischeErgänzung = 0;
+			if(rind==1){
+				gesamt=gesamt1-split[9]; //nur minus, weil die quadrat. erg. immer positiv ist
+			}else if(rind==2){
+				gesamt=gesamt2-split[9];
+			}
+
+			//grafische pausen/Darstellung:
+		if(gesamt>0){
+			gesamt= " + " + gesamt;
+		}else if(gesamt<0){
+			gesamt = " " + gesamt ;
+			var gum = gesamt.split("");
+			gesamt = gum[0] + gum[1]+ " " + gum[2];
+			if( gum[3]!=undefined){
+					gesamt = gesamt + gum[3];
+			}else if (gum[4]!=undefined){
+				gesamt = gesamt + gum[3] + gum[4];
+			}
+		}else{
+			gesamt = "";
+		}
+				//2.Zeile:
+				$(".bruchBox").eq(3).text(split[0] + split[1] + split[2]+ " "+split[3]+  split[4]+ " " + split[5]+ " " + split[6] + " "+split[7]	+ " " + split[8] + " " + split[9]	+ " " + gesamt);
+				$(".operator").eq(3).text("|");
+				$(".bruchBox").eq(5).text(vorzeichenwechsel(gesamt));
+
+				//3.Zeile:
+				$(".bruchBox").eq(6).text(aufgabe[2] + " \\( \\text{ }^2  \\)"	);
+				$(".operator").eq(5).text("|");
+
+				var inhalt = "\\(	\\sqrt{ \\phantom{xyz}  }\\)";
+				$(".bruchBox").eq(8).text(inhalt);
+
+
+				var array = gesamt.split(" ");
+				//	alert(array[1]);
+				if(array[1]=="+"){
+					gesamt = " - " + array[2];
+				}else if(array[1]=="-"){
+
+					gesamt = array[2];
+				}
+					$(".bruchBox").eq(7).text(gesamt);
+					var arrayz = aufgabe[2].split(" ");
+					ohneKlammer = arrayz[1]  + " "+ arrayz[2] + " " + arrayz[3];
+					//zeile4:
+					$(".bruchBox").eq(9).text(ohneKlammer);
+					var ergebnis = Math.sqrt(gesamt);
+					ergebnis = ergebnis*100;
+					ergebnis = Math.round(ergebnis);
+					var zahlergebnis = ergebnis/100;
+					if (isNaN(ergebnis)){
+						ergebnis = " keine Lösung";
+					}else{
+							ergebnis = " \\( \\pm\\)" +  zahlergebnis;
+					}
+					$(".bruchBox").eq(10).text(ergebnis);
+
+
+
+					if(!isNaN(zahlergebnis)){
+						//kommando
+
+
+
+						$("#aufgabenFeld").children().eq(4).show();
+						$("#aufgabenFeld").children().eq(5).show();
+						$("#aufgabenFeld").children().eq(6).show();
+							$(".bruchBox").eq(12).text(arrayz[1]);
+							var zahlig = arrayz[2] + " " + arrayz[3];
+							var zö = vorzeichenwechsel(zahlig,"mit");
+							//Kommando:
+							$(".operator").eq(7).text("|");
+						 	$(".bruchBox").eq(11).text(zö);
+							$(".bruchBox").eq(13).text(ergebnis + " " + zö);
+							var nosplit = nospace(zö);
+
+							zahlergebnis=parseFloat(zahlergebnis);
+							nosplit = parseFloat(nosplit);
+							var ergebnis1 = zahlergebnis + nosplit;
+							ergebnis1 = ergebnis1*100;
+							ergebnis1 = Math.round(ergebnis1);
+							ergebnis1 = ergebnis1/100;
+							var ergebnis2 = - zahlergebnis + nosplit;
+							ergebnis2 = ergebnis2*100;
+							ergebnis2 = Math.round(ergebnis2);
+							ergebnis2 = ergebnis2/100;
+							$(".bruchBox").eq(15).text( "\\(\\text{"+ arrayz[1] + "}_1	\\)");
+							$(".bruchBox").eq(16).text(+zahlergebnis + " " + zö + " = " + ergebnis1);
+
+							$(".bruchBox").eq(18).text( "\\(\\text{"+ arrayz[1] + "}_2	\\)");
+							$(".bruchBox").eq(19).text(-zahlergebnis + " " + zö + " = " + ergebnis2);
+					}else{
+							$("#aufgabenFeld").children().eq(4).hide();
+							$("#aufgabenFeld").children().eq(5).hide();
+							$("#aufgabenFeld").children().eq(6).hide();
+					}
+
+		}
+		function vorzeichenwechsel(string, mitohne){
+			var banana = string.split(" ");
+			var vorzeichen = banana[0];
+			var zahl = banana[1];
+			if(banana[0]==""){
+				vorzeichen = banana[1];
+				zahl = banana[2];
+			}
+			var ergebnis= "x";
+			if(vorzeichen == "+"){
+				ergebnis = " - " + zahl;
+			}else if(vorzeichen == "-"){
+				ergebnis = " + " + zahl;
+				if(mitohne=="ohne"){
+					ergebnis=zahl;
+				}
+			}
+			return ergebnis;
+		}
+
+		function nospace(string){
+			var array= string.split(" ");
+			var vorzeichen = array[0];
+			var zahl = array[1];
+			if(array[0]==""){
+				vorzeichen=array[1];
+				zahl = array[2];
+			}
+			var ergebnis = vorzeichen+zahl;
+			return ergebnis;
+		}
+
+	 //kommandos links ausrichten:
+		$(".lösung").css("justify-content","left");
+
+		ergebnischeck(aufgabe);
 		//clickfunktion für lösungen
 
-		$(".bruchBox").find(".zählerböxchen ,.nennerböxchen").click(function(){
+		$(".bruchBox").click(function(){
 		inputMachen($(this), aufgabe);
 		});
 }); //ende click links
@@ -155,6 +408,7 @@ function ergebnischeck(aufgabe){
 
 	var ergebnisSoll = aufgabe[2];
 
+
 	//erster  Bruch
 	//if( (isNaN(zähler1))||(isNaN(nenner1))||(zähler1=="")||(nenner1=="")){
 	//}
@@ -166,7 +420,7 @@ function ergebnischeck(aufgabe){
 
 
 	//	var ort3 = $(".bilderFeld").children().eq(2);
-	$(".lösung").text(aufgabe[2]);
+
 	MathJax.Hub.Queue(["Typeset",MathJax.Hub,".lösung"]);
 
 
